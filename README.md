@@ -37,5 +37,12 @@ npm i
 npm start
 ```
 
+<div  style="display:flax;" >
+<img src="https://raw.githubusercontent.com/TrickyVikram/Students_MS/1.png" alt="img" width="400px" height="300">
+<img src="https://raw.githubusercontent.com/TrickyVikram/Students_MS/2.png" alt="img" width="400px" height="300">
+
+
+</div >
+
 
 # Students_MS
