@@ -38,8 +38,8 @@ npm start
 ```
 
 <div  style="display:flax;" >
-<img src="https://raw.githubusercontent.com/TrickyVikram/Students_MS/main/1.png" alt="img" width="400px" height="300">
-<img src="https://raw.githubusercontent.com/TrickyVikram/Students_MS/main/2.png" alt="img" width="400px" height="300">
+<img src="https://raw.githubusercontent.com/TrickyVikram/Students_MS/main/1.png" alt="img" >
+<img src="https://raw.githubusercontent.com/TrickyVikram/Students_MS/main/2.png" alt="img" >
 
 
 </div >
