@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Grid, Box } from '@mui/material';
 import axios from 'axios';
+import GoogleIcon from '@mui/icons-material/Google';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -68,14 +69,15 @@ const Signup = () => {
           Sign Up
         </Button>
         <Button
-          type="button"
-          fullWidth
-          variant="outlined"
-          sx={{ mt: 2 }}
-          href="http://localhost:80/auth/google" // Correct Google OAuth URL
-        >
-          Sign Up in with Google
-        </Button>
+      type="button"
+      fullWidth
+      variant="outlined"
+      sx={{ mt: 2 }}
+      href="http://localhost:80/auth/google" // Correct Google OAuth URL
+      startIcon={<GoogleIcon />}
+    >
+      Sign_up in with Google
+    </Button>
 
         <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
           <Grid item>

@@ -26,7 +26,7 @@ const Navbar = () => {
                   Login
                 </Button>
                 <Button component={Link} to="/register" color="inherit">
-                  Registration
+                  Sign_UP
                 </Button>
                 <Avatar
                   sx={{ ml: 2 }}

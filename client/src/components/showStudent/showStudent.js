@@ -28,11 +28,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2, 4, 3),
   },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    margin: theme.spacing(2),
+  },
 }));
 
 export default function ShowStudent() {
   const classes = useStyles();
   const [studentList, setStudentList] = useState([]);
+  const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState({
     _id: '',
@@ -65,24 +71,37 @@ export default function ShowStudent() {
           )
         );
         handleClose();
+      })
+      .catch((err) => {
+        setError('Failed to update student.');
       });
   };
 
   const deleteStudent = (id) => {
-    axios.delete(`http://localhost:80/students/${id}`).then(() => {
-      setStudentList((prevList) => prevList.filter((student) => student._id !== id));
-    });
+    axios.delete(`http://localhost:80/students/${id}`)
+      .then(() => {
+        setStudentList((prevList) => prevList.filter((student) => student._id !== id));
+      })
+      .catch((err) => {
+        setError('Failed to delete student.');
+      });
   };
 
   useEffect(() => {
-    axios.get('http://localhost:80/students').then((response) => {
-      setStudentList(response.data);
-    });
+    axios.get('http://localhost:80/students')
+      .then((response) => {
+        setStudentList(response.data);
+        setError('');
+      })
+      .catch((err) => {
+        setError('Failed to fetch student data.');
+      });
   }, []);
 
   return (
     <>
       <h1>All Students</h1>
+      {error && <div className={classes.error}>{error}</div>}
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -95,22 +114,28 @@ export default function ShowStudent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentList.map((student) => (
-              <TableRow key={student._id}>
-                <TableCell align="center">{student.regId}</TableCell>
-                <TableCell align="center">{student.name}</TableCell>
-                <TableCell align="center">{student.course}</TableCell>
-                <TableCell align="center">{student.section}</TableCell>
-                <TableCell align="center">
-                  <IconButton aria-label="edit" onClick={() => handleOpen(student)}>
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton aria-label="delete" onClick={() => deleteStudent(student._id)}>
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
+            {studentList.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} align="center">No students available</TableCell>
               </TableRow>
-            ))}
+            ) : (
+              studentList.map((student) => (
+                <TableRow key={student._id}>
+                  <TableCell align="center">{student.regId}</TableCell>
+                  <TableCell align="center">{student.name}</TableCell>
+                  <TableCell align="center">{student.course}</TableCell>
+                  <TableCell align="center">{student.section}</TableCell>
+                  <TableCell align="center">
+                    <IconButton aria-label="edit" onClick={() => handleOpen(student)}>
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => deleteStudent(student._id)}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

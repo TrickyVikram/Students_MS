@@ -21,14 +21,21 @@ export default function AddStudent() {
     course: '',
     section: '',
   });
+  const [error, setError] = useState('');
   const createStudent = () => {
-    axios.post('http://localhost:80/students', student).then(() => {
-      window.location.reload(false);
-    });
+    axios.post('http://localhost:80/students', student)
+      .then(() => {
+        window.location.reload(false);
+      })
+      .catch((err) => {
+        setError('Failed to add data.');
+      });
   };
+  
   return (
     <>
       <h1>Add Students</h1>
+    {error && <div style={{color:"red"}} className={classes.error}>{error}</div>}
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
           id="standard-basic"

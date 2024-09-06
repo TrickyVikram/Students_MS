@@ -18,48 +18,18 @@ import Dashboard from "./components/Dashboard";
 import "./App.css";
 
 function App() {
-  const classes = useStyles();
   return (
     <div className="App">
       <Router>
         <Navbar />
 
         <Container maxWidth="lg">
-          {/* <AppBar className={classes.appBar} position="static" color="inherit">
-            <Typography className={classes.heading} variant="h2" align="center">
-              Student Management System
-            </Typography>
-          </AppBar>
-          <Grow in>
-            <Container>
-              <Grid container justifyContent="space-between" alignItems="stretch">
-                <Grid item xs={12} sm={7}>
-                  <AppBar
-                    className={classes.appBar}
-                    position="static"
-                    color="inherit"
-                  >
-                    <Student />
-                  </AppBar>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <AppBar
-                    className={classes.appBar}
-                    position="static"
-                    color="inherit"
-                  >
-                    <CreateStudent />
-                  </AppBar>
-                </Grid>
-              </Grid>
-            </Container>
-          </Grow> */}
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
+            <Route path="*" element={<Home />} />
           </Routes>
         </Container>
       </Router>
