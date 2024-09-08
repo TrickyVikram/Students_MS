@@ -8,6 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 // User Signup
 const signup = async (req, res) => {
+    console.log("signup route conroller");
     const { name, email, password } = req.body;
 
     try {
@@ -31,7 +32,7 @@ const signup = async (req, res) => {
 
         // Create a token
         const token = jwt.sign({ email: newUser.email, id: newUser._id }, JWT_SECRET, { expiresIn: '1h' });
-
+        res.redirect('/dashboard');
         res.status(201).json({ user: newUser, token });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' });
@@ -53,7 +54,7 @@ const login = async (req, res) => {
 
         // Create a token
         const token = jwt.sign({ email: user.email, id: user._id }, JWT_SECRET, { expiresIn: '1h' });
-
+       res.redirect('/dashboard'); // Uncomment this if redirection is needed
         res.status(200).json({ user, token });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' });

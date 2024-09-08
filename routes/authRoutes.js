@@ -4,7 +4,10 @@ const { signup, login } = require('../controllers/authController');
 const router = express.Router();
 
 // Local signup
-router.post('/signup', signup);
+router.post('/signup',()=>{
+
+console.log("signup route");
+} ,signup);
 
 // Local login
 router.post('/login', login);
@@ -20,6 +23,7 @@ router.get('/auth/google/callback',
     res.redirect('/dashboard');
   }
 );
+
 
 // Logout route
 router.get('/logout', (req, res) => {

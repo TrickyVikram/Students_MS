@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Grow,
-  AppBar,
-  Typography,
-  Grid
-} from "@material-ui/core";
-import Student from "./components/showStudent/showStudent";
-import CreateStudent from "./components/createStudent/createStudent";
-import useStyles from "./styles";
+import { Container } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
@@ -18,11 +9,11 @@ import Dashboard from "./components/Dashboard";
 import "./App.css";
 
 function App() {
+
   return (
     <div className="App">
       <Router>
         <Navbar />
-
         <Container maxWidth="lg">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -36,5 +27,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

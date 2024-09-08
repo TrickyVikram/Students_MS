@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Grid, Box } from '@mui/material';
-import axios from 'axios';
+import { TextField, Button, Container, Typography, Grid, Box, Alert } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
+import { useNavigate } from 'react-router-dom';
+// import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
+
+
 const Login = () => {
+  const { loginWithGoogle, loginWithEmail } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true); // Set loading state before making the request
+    setError(''); // Clear any previous errors
+    setSuccess(''); // Clear any previous success messages
+
     try {
-      const response = await axios.post('/auth/login', { email, password });
-      alert(response.data.message);
+      await loginWithEmail(email, password);
+      setSuccess('Login successful!');
+      setTimeout(() => navigate('/dashboard'), 2000); // Redirect after 2 seconds
     } catch (err) {
-      alert('Login failed: ' + err.response.data.message);
+      setError('Login failed: Something went wrong');
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
@@ -31,6 +47,8 @@ const Login = () => {
         <Typography component="h1" variant="h5" gutterBottom>
           Login
         </Typography>
+        {success && <Alert severity="success">{success}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
         <TextField
           variant="outlined"
           margin="normal"
@@ -56,20 +74,20 @@ const Login = () => {
           color="primary"
           sx={{ mt: 2 }}
           onClick={handleLogin}
+          disabled={loading}
         >
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </Button>
         <Button
-      type="button"
-      fullWidth
-      variant="outlined"
-      sx={{ mt: 2 }}
-      href="http://localhost:80/auth/google" // Correct Google OAuth URL
-      startIcon={<GoogleIcon />}
-    >
-      Sign in with Google
-    </Button>
-
+          type="button"
+          fullWidth
+          variant="outlined"
+          sx={{ mt: 2 }}
+          onClick={() => loginWithGoogle()}
+          startIcon={<GoogleIcon />}
+        >
+          Sign in with Google
+        </Button>
         <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
           <Grid item>
             <Typography variant="body2">
