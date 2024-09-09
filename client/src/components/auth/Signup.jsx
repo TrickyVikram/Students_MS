@@ -19,9 +19,8 @@ const Signup = () => {
     setError(''); // Clear any previous errors
     setSuccess(''); // Clear any previous success messages
 
-
     try {
-      await registerWithEmail(email, password);
+      await registerWithEmail(email, password, name); // Pass name as well
       setSuccess('Signup successful!');
       setName('');
       setEmail('');

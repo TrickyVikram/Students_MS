@@ -10,11 +10,10 @@ const studentDB = require('./database/studentDB'); // Database connection
 const User = require('./models/userModel'); // User model for MongoDB
 
 // Controllers
-const { signup, login } = require('./controllers/authController'); // Authentication controllers
+
 
 // Routes
 const studentRoutes = require('./routes/studentRoutes'); // Routes for student operations
-const authRoutes = require('./routes/authRoutes'); // Routes for authentication
 
 const app = express(); // Create an Express application
 const port = process.env.PORT || 80; // Define the port
@@ -87,10 +86,14 @@ app.use(passport.session()); // Use Passport session
 
 // Routes
 app.use('/students', studentRoutes); // Use student routes
-app.use( '/auth',()=>{
-  console.log('auth routes');
-},
-authRoutes); // Use authentication routes
+
+
+
+
+
+
+
+
 
 // Google Authentication Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] })); // Start Google OAuth flow
@@ -104,8 +107,7 @@ app.get('/auth/google/callback',
   
 );
 
-app.post('/signup', signup); // Signup route
-app.post('/login', login); // Login route
+
 
 app.get('/logout', (req, res) => {
   req.logout((err) => {
@@ -124,3 +126,7 @@ app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`); // Log server start
 });
 
+
+
+const authRoutes = require('./routes/authRoutes');
+app.use('/auth', authRoutes);

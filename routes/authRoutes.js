@@ -2,12 +2,10 @@ const express = require('express');
 const passport = require('passport');
 const { signup, login } = require('../controllers/authController');
 const router = express.Router();
+console.log("authRoutesfile");
 
 // Local signup
-router.post('/signup',()=>{
-
-console.log("signup route");
-} ,signup);
+router.post('/signup', signup);
 
 // Local login
 router.post('/login', login);
@@ -24,11 +22,11 @@ router.get('/auth/google/callback',
   }
 );
 
-
 // Logout route
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+  req.logout(() => {
+    res.redirect('/');
+  });
 });
 
 module.exports = router;
