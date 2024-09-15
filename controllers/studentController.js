@@ -66,4 +66,4 @@ const getStudentById = async (req, res) => {
 
 
 
-module.exports = { getStudents, createStudent, deleteStudent ,UpdateStudent};
+module.exports = {getStudentById, getStudents, createStudent, deleteStudent ,UpdateStudent};
