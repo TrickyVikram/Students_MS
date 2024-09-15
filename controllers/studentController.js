@@ -48,6 +48,19 @@ const UpdateStudent = async (req, res) => {
   }
 };
 
+const getStudentById = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const student = await
+    StudentData.findById(id);
+    res.status(200).json(student);
+  }
+  catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+}
+
 
 
 

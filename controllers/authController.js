@@ -80,21 +80,19 @@ const login = async (req, res) => {
     }
 };
 
+
 // Google OAuth Authentication
 const googleAuth = passport.authenticate('google', { scope: ['profile', 'email'] });
 
 // Google OAuth Callback
 const googleAuthCallback = (req, res) => {
-    // This is handled automatically by passport, no need for manual token creation
-    if (req.user) {
-        // If user is authenticated, you can create a token or redirect as needed
-        const token = jwt.sign({ email: req.user.email, id: req.user._id }, JWT_SECRET, { expiresIn: '1h' });
-        // For example, you could redirect with a token or store the token in a cookie
-        res.redirect(`/dashboard?token=${token}`);
-    } else {
-        // Redirect to login if the authentication failed
-        res.redirect('/login');
-    }
+  if (req.user) {
+    const token = jwt.sign({ email: req.user.email, id: req.user._id }, JWT_SECRET, { expiresIn: '1h' });
+    // res.redirect(`/dashboard/?token=${token}`);
+    res.redirect(`/dashboard`);
+  } else {
+    res.redirect('/login');
+  }
 };
 
 // Exporting the controllers

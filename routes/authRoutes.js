@@ -1,8 +1,8 @@
+
 const express = require('express');
 const passport = require('passport');
 const { signup, login } = require('../controllers/authController');
 const router = express.Router();
-console.log("authRoutesfile");
 
 // Local signup
 router.post('/signup', signup);
@@ -18,15 +18,15 @@ router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
     // On successful authentication, redirect to dashboard
-    res.redirect('/dashboard');
+    console.log(req.user);
+    res.redirect('http://localhost:3000/dashboard');
   }
 );
 
 // Logout route
 router.get('/logout', (req, res) => {
-  req.logout(() => {
-    res.redirect('/');
-  });
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;
